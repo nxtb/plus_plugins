@@ -1,8 +1,6 @@
 package dev.fluttercommunity.plus.share
 
 import android.content.*
-import android.content.Context.RECEIVER_EXPORTED
-import android.os.Build
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry.ActivityResultListener
 import java.util.concurrent.atomic.AtomicBoolean
@@ -14,24 +12,6 @@ import java.util.concurrent.atomic.AtomicBoolean
 internal class ShareSuccessManager(private val context: Context) : ActivityResultListener {
     private var callback: MethodChannel.Result? = null
     private var isCalledBack: AtomicBoolean = AtomicBoolean(true)
-
-    /**
-     * Register listener. Must be called before any share sheet is opened.
-     */
-    fun register() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.registerReceiver(this, IntentFilter(BROADCAST_CHANNEL), RECEIVER_EXPORTED)
-        } else {
-            context.registerReceiver(this, IntentFilter(BROADCAST_CHANNEL))
-        }
-    }
-
-    /**
-     * Deregister listener. Must be called before the base activity is invalidated.
-     */
-    fun discard() {
-        context.unregisterReceiver(this)
-    }
 
     /**
      * Set result callback that will wait for the share-sheet to close and get either
