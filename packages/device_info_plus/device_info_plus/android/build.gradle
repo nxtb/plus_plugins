@@ -27,6 +27,8 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 33
 
+    namespace "dev.fluttercommunity.plus.device_info"
+
     defaultConfig {
         minSdkVersion 16
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
